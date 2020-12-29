@@ -1,0 +1,57 @@
+#:set primary [0.12941176470588237, 0.5882352941176471, 0.9529411764705882, 1]
+#:set bs_info [0.36, 0.75, 0.87, 1]
+#:set bs_primary [0.01, 0.46, 0.85, 1]
+#:set bs_warning [0.94, 0.68, 0.31, 1]
+#:set white [1, 1, 1, 1]
+#:set black [0, 0, 0, 1]
+
+<MainWindow>:
+
+    navbar: navbar
+    nav_chat: nav_chat
+    nav_login: nav_login
+    nav_registration: nav_registration
+
+    screen_manager: screen_manager
+
+    rows: 2
+
+    MDBoxLayout:
+
+        id: navbar
+
+        size_hint: 1, 0.075
+        pos_hint: {'x': 0, 'y': 1 }
+        canvas.before:
+            Color:
+                rgba: bs_info
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        Button:
+            id: nav_registration
+            text: "Registration"
+
+            on_release:
+                root.nav_registration_click()
+
+
+        Button:
+            id: nav_login
+            text: "Login"
+
+            on_release:
+                root.nav_login_click()
+
+        Button:
+            id: nav_chat
+            text: "Chat"
+
+            on_release:
+                root.nav_chat_click()
+
+    BoxLayout:
+        ScreenManager:
+            id: screen_manager
+

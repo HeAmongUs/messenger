@@ -1,0 +1,115 @@
+<ChatLayout>:
+    message_text_input: message_text_input
+    message_send_btn: message_send_btn
+    message_list: message_list
+
+    rows: 3
+    MDBoxLayout:
+        size_hint: 1, 0.1
+        MDBoxLayout:
+        MDRectangleFlatIconButton:
+            id: refresh
+            icon: "refresh"
+            line_color: 0, 0, 0, 0
+            pos_hint: {"x": 1, "y": 0}
+            size: 40, 45
+            theme_text_color: "Custom"
+            text_color: app.theme_cls.primary_color
+
+            on_release:
+                root.refresh()
+        MDRectangleFlatIconButton:
+            id: mine
+            icon: "pickaxe"
+            line_color: 0, 0, 0, 0
+            pos_hint: {"x": 1, "y": 0}
+            size: 40, 45
+            theme_text_color: "Custom"
+            text_color: app.theme_cls.primary_color
+
+            on_release:
+                root.mine()
+        MDBoxLayout:
+
+    MDBoxLayout:
+        padding: [20, 20, 30, 0]
+        ScrollView:
+            MDList:
+                id: message_list
+                padding: [0, 200, 0, 50]
+                MessageListItem:
+                    text: "UserLogin"
+                    secondary_text: "some text \nsome text line 2 \nline3\nline4\nline5"
+
+
+
+    MDBoxLayout:
+        padding: [30, 0, 30, 20]
+        size_hint: 1, 0.2
+        MDBoxLayout:
+            spacing: 15
+            MDTextField:
+                id: message_text_input
+                hint_text: "Enter your message"
+                mode: "rectangle"
+                multiline: True
+
+            MDRectangleFlatIconButton:
+                id: message_send_btn
+                icon: "send"
+                line_color: 0, 0, 0, 0
+                pos_hint: {"x": 1, "y": 0}
+                size: 40, 45
+                theme_text_color: "Custom"
+                text_color: app.theme_cls.primary_color
+
+                on_release:
+                    root.send_message()
+
+
+
+<MessageListItem>
+    size_hint_y: None
+    canvas:
+        Color:
+            rgba:
+                self.theme_cls.divider_color if root.divider is not None\
+                else (0, 0, 0, 0)
+
+        Color:
+            rgba: root.bg_color if root.bg_color else (0, 0, 0, 0)
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    BoxLayout:
+        id: _text_container
+        orientation: 'vertical'
+        pos: root.pos
+        padding:
+            root._txt_left_pad, root._txt_top_pad,\
+            root._txt_right_pad, root._txt_bot_pad
+
+        MDLabel:
+            id: _lbl_primary
+            text: root.text
+            font_style: root.font_style
+            theme_text_color: root.theme_text_color
+            text_color: root.text_color
+            size_hint_y: None
+            height: self.texture_size[1]
+            markup: True
+            shorten_from: 'right'
+            shorten: True
+
+        MDLabel:
+            id: _lbl_secondary
+            text: '' if root._num_lines == 1 else root.secondary_text
+            font_style: root.secondary_font_style
+            theme_text_color: root.secondary_theme_text_color
+            text_color: root.secondary_text_color
+            size_hint_y: None
+            height: 0 if root._num_lines == 1 else self.texture_size[1]
+
+
+
